@@ -37,7 +37,7 @@ function singleRound(playerSelection, computerSelection) {
 
 function game() {
   let score = [0,0];
-  for (let i = 0; i < 5; i++) {
+  while (score[0] < 5) {
     let computerSelection = computerPlay().toLowerCase();
     let playerSelection = prompt("Paper/Scissors/Rock?").toLowerCase();
     let result = singleRound(playerSelection, computerSelection);
