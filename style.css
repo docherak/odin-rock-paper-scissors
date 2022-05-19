@@ -1,0 +1,27 @@
+body {
+  margin: 100px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+button {
+  width: 250px;
+  padding: 25px 25px;
+  border-radius: 12px;
+  border: 2px solid blue;
+  background-color: blue;
+  color: white;
+  transition-duration: 0.4s;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: bolder;
+}
+
+button:hover {
+  background-color: white;
+  color: blue;
+  border: 2px dashed blue;
+}
