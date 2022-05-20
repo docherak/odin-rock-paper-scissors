@@ -1,6 +1,7 @@
 // Load buttons and play:
 
 // sem hodit if na 5 bodu a dat disable + reset option (asi pres fci)
+let score = [0,0];
 const btns = document.querySelectorAll('button');
 btns.forEach(btn => btn.addEventListener('click', playerPlay));
 
@@ -16,13 +17,12 @@ function playerPlay(e) {
   singleRound(playerSelection, computerPlay());
 }
 
-// dat disable buttons po 5 kolech
+function killButtons() {
+  btns.forEach(btn => {btn.disabled = true})
+}
 
 function singleRound(playerSelection, computerSelection) {
-  console.log(computerSelection);
-  console.log(playerSelection);
   if (playerSelection == computerSelection) {
-    alert("Tie");
     return 0;
   } else if (((playerSelection == "scissors") & (computerSelection == "paper")) ||
       ((playerSelection == "paper") & (computerSelection == "rock")) ||
@@ -42,31 +42,24 @@ function singleRound(playerSelection, computerSelection) {
   }
 }
 
-function game() {
-  let score = [0,0];
-  while (score[0] < 5) {
-    let computerSelection = computerPlay();
+  const results = document.createElement('section');
+  results.classList.add('results');
+  const main = document.querySelector('main');
 
-  //  let playerSelection = prompt("Paper/Scissors/Rock?").toLowerCase();
-
-    let result = singleRound(playerSelection, computerSelection);
-    if (result == 1) {
-      score[0]++;
-    } else if (result == 2) {
-      score[1]++;
+  if (score[0] < 5) {
+    if (singleRound == 0) {
+      results.textContent = "It's a tie!";
+      main.appendChild(results);
+    } else if (singleRound == 1) {
+      score[0]++
+      results.textContent = `Point for the player! ${playerSelection} beats ${computerSelection}!`;
+      main.appendChild(results);
     } else {
-      continue;
+      score[1]++
+      results.textContent = `Point for the AI! ${computerSelection} beats ${playerSelection}!`;
+      main.appendChild(results);
     }
-    alert(`Score >> Player: ${score[0]}, AI: ${score[1]}.`)
   }
-  alert(`Final score >> Player: ${score[0]}, AI: ${score[1]}.`)
-}
 
-
-//for (btn of btns) {
-//  console.log(btn.textContent);
-//  btn.addEventListener("click", function () {singleRound(btn.textContent, computerSelection)});
-//}
-
-
-//game();
+  results.textContent = `Final score: Player: ${score[0]}, AI: ${score[1]}.`
+  main.appendChild(results);
