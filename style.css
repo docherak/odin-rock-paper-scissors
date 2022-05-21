@@ -42,3 +42,9 @@ button:hover {
   color: blue;
   border: 2px dashed blue;
 }
+
+button:disabled {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}

@@ -3,8 +3,10 @@
 // sem hodit if na 5 bodu a dat disable + reset option (asi pres fci)
 let score = [0,0];
 const btns = document.querySelectorAll('button');
+const main = document.querySelector('main');
+const results = document.createElement('section');
+results.classList.add('results');
 btns.forEach(btn => btn.addEventListener('click', playerPlay));
-
 // Functions:
 function computerPlay() {
   const psr = ["paper", "scissors", "rock", "lizard", "spock"];
@@ -18,12 +20,20 @@ function playerPlay(e) {
 }
 
 function killButtons() {
-  btns.forEach(btn => {btn.disabled = true})
+  btns.forEach(btn => {btn.disabled = true});
 }
 
 function singleRound(playerSelection, computerSelection) {
+  if (score[0] >= 5) {
+    killButtons();
+    results.textContent = `Final score: Player: ${score[0]}, AI: ${score[1]}.`
+    main.appendChild(results);
+    return;
+  }
   if (playerSelection == computerSelection) {
-    return 0;
+    results.textContent = "It's a tie!";
+    main.appendChild(results);
+    return;
   } else if (((playerSelection == "scissors") & (computerSelection == "paper")) ||
       ((playerSelection == "paper") & (computerSelection == "rock")) ||
       ((playerSelection == "rock") & (computerSelection == "lizard")) ||
@@ -34,32 +44,14 @@ function singleRound(playerSelection, computerSelection) {
       ((playerSelection == "paper") & (computerSelection == "spock")) ||
       ((playerSelection == "spock") & (computerSelection == "rock")) ||
       ((playerSelection == "rock") & (computerSelection == "scissors"))) {
-    alert("Point for player");
-    return 1;
+    score[0]++
+    results.textContent = `Point for the player! ${playerSelection} beats ${computerSelection}!`;
+    main.appendChild(results);
+    return;
   } else {
-    alert("Point for the AI");
-    return 2;
+    score[1]++
+    results.textContent = `Point for the AI! ${computerSelection} beats ${playerSelection}!`;
+    main.appendChild(results);
+    return;
   }
 }
-
-  const results = document.createElement('section');
-  results.classList.add('results');
-  const main = document.querySelector('main');
-
-  if (score[0] < 5) {
-    if (singleRound == 0) {
-      results.textContent = "It's a tie!";
-      main.appendChild(results);
-    } else if (singleRound == 1) {
-      score[0]++
-      results.textContent = `Point for the player! ${playerSelection} beats ${computerSelection}!`;
-      main.appendChild(results);
-    } else {
-      score[1]++
-      results.textContent = `Point for the AI! ${computerSelection} beats ${playerSelection}!`;
-      main.appendChild(results);
-    }
-  }
-
-  results.textContent = `Final score: Player: ${score[0]}, AI: ${score[1]}.`
-  main.appendChild(results);
